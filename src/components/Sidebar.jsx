@@ -1,35 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IoIosClose } from "react-icons/io";
 import { Menu } from 'antd';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import{Link} from 'react-router-dom'
-function Sidebar() {
-  const [close, setClose] = useState(false);
-
-
-  const toggleClose = () => {
-    setClose(!close);
-  };
-
+import ProductDetails from './ProductDetail';
+import CompareProducts from './CompareProduct';
+function Sidebar({ closeSidebar }) {
   return (
-    <div
-      className={clsx(
-        'fixed top-0 right-0 w-screen h-full lg:hidden backdrop-blur-sm ',
-        close && "translate-x-0"
-      )}
-    >
-      <section className='absolute left-0 z-50 h-screen text-black bg-white flex-cl p-9 gap-9'>
+    <div className={clsx('fixed inset-0 z-50 flex', closeSidebar && 'translate-x-0')}>
+      <div className="w-64 h-full p-5 bg-white shadow-lg">
         <IoIosClose 
-          onClick={toggleClose} 
-          className='mt-0 mb-8 text-3xl cursor-pointer'
+          className="mb-6 text-3xl cursor-pointer"
+          onClick={closeSidebar} 
         />
-        <Menu mode="inline" className='font-bold' defaultSelectedKeys={['']} style={{ height: '100%', borderRight: 0 }}>
-          <Menu.Item key="1"> <Link to="/products"> Product Details</Link> </Menu.Item>
-          <Menu.Item key="2"><Link to="/compares" > Compare Products</Link> </Menu.Item>
-          <Menu.Item key="3"><Link to="/add" > Add Product</Link> </Menu.Item>
-          <Menu.Item key="4"><Link to="/brand" >Brand</Link> </Menu.Item>
+        <Menu mode="inline" className="font-bold">
+          <Menu.Item key="1">
+            <Link to="/ProductDetail" onClick={ProductDetails}>Product Details</Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link to="/CompareProduct" onClick={CompareProducts}>Compare Products</Link>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <Link to="/add" onClick={closeSidebar}>Add Product</Link>
+          </Menu.Item>
+          <Menu.Item key="4">
+            <Link to="/brand" onClick={closeSidebar}>Brand</Link>
+          </Menu.Item>
         </Menu>
-      </section>
+      </div>
+      <div
+        className="flex-grow bg-black opacity-50"
+        onClick={closeSidebar}
+      />
     </div>
   );
 }

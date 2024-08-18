@@ -13,14 +13,17 @@ const router = createBrowserRouter([
     element: <Layout>
                 <Navbar />
                 <Content>
-                  <ProductDetail /> {/* Landing Page */}
+                  <ProductDetail /> 
                 </Content>
               </Layout>,
     children: [
       {
-        path: 'compare', 
+        path: '/compareProduct', 
         element: <CompareProduct />,
-      },
+      },{
+        path:'/ProductDetail',
+        element:<ProductDetail/>
+      }
     ],
   },
 ]);
@@ -28,6 +31,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <RouterProvider router={router} />
+
   );
 }
 
